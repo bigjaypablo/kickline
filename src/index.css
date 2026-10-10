@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme='dark'] {
+  --ink: 8 9 10;
+  --panel: 17 20 18;
+  --line: 36 42 38;
+  --bone: 236 238 232;
+  --mute: 138 146 140;
+  --volt: 91 212 38;
+  --onvolt: 6 18 10;
+}
+:root[data-theme='light'] {
+  --ink: 244 243 239;
+  --panel: 255 255 255;
+  --line: 217 215 208;
+  --bone: 16 18 20;
+  --mute: 93 100 110;
+  --volt: 47 143 16;
+  --onvolt: 255 255 255;
+}
+
+body {
+  @apply bg-ink text-bone antialiased;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.25s, color 0.25s;
+}
+.display {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+::-webkit-scrollbar { display: none; }
+
+.dots {
+  background-image: radial-gradient(rgb(var(--line)) 1px, transparent 1px);
+  background-size: 14px 14px;
+  -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent);
+  mask-image: linear-gradient(to bottom, black 35%, transparent);
+}
+
+.force-dark {
+  --ink: 8 9 10;
+  --panel: 17 20 18;
+  --line: 36 42 38;
+  --bone: 236 238 232;
+  --mute: 138 146 140;
+  --volt: 91 212 38;
+  --onvolt: 6 18 10;
+  color: rgb(236 238 232);
+}
