@@ -1,4 +1,4 @@
-export type Placement = 'top' | 'infeed' | 'footer' | 'sticky'
+export type Placement = 'top' | 'infeed' | 'footer' | 'sticky' | 'sidebar'
 
 export interface Banner {
   id: string

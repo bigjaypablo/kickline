@@ -11,6 +11,7 @@ export interface Prediction {
   odds: number
   prob: number
   result: Result
+  sport?: Sport
 }
 
 export const day = (offset: number) =>
@@ -71,3 +72,26 @@ export async function getRecent(days = 5): Promise<Prediction[]> {
     a.date < b.date ? 1 : -1
   )
 }
+
+export type Sport = 'football' | 'basketball' | 'hockey' | 'handball'
+export const sportOf = (r: Prediction): Sport => r.sport ?? 'football'
+
+const s = (sport: Sport, ...args: Parameters<typeof p>): Prediction => ({ ...p(...args), sport })
+
+// MOCK rows so every market and sport page has something to show
+MOCK.push(
+  p('17', 0, '12:30', 'Spain: La Liga', 'Getafe', 'Valencia', 'X', 3.1, 34, 'pending'),
+  p('18', 0, '15:30', 'England: Premier League', 'Brentford', 'Fulham', 'BTTS', 1.72, 58, 'pending'),
+  p('19', 0, '17:00', 'Netherlands: Eredivisie', 'Ajax', 'Utrecht', 'Over 2.5', 1.65, 61, 'pending'),
+  p('20', 0, '19:45', 'Italy: Serie A', 'Atalanta', 'Bologna', '1X', 1.28, 78, 'pending'),
+  p('21', 0, '20:00', 'Spain: La Liga', 'Girona', 'Alavés', 'Over 3.5', 2.35, 40, 'pending'),
+  p('22', 0, '18:30', 'Germany: Bundesliga', 'Köln', 'Hamburg', '12', 1.3, 77, 'pending'),
+  s('basketball', 'b1', 0, '19:00', 'USA: NBA', 'Boston Celtics', 'Chicago Bulls', '1', 1.35, 76, 'pending'),
+  s('basketball', 'b2', 0, '21:30', 'USA: NBA', 'LA Lakers', 'Utah Jazz', 'Over 224.5', 1.85, 57, 'pending'),
+  s('basketball', 'b3', 0, '20:00', 'Spain: ACB', 'Real Madrid', 'Valencia Basket', '1', 1.28, 79, 'pending'),
+  s('hockey', 'h1', 0, '19:30', 'USA: NHL', 'Boston Bruins', 'Detroit Red Wings', '1', 1.6, 64, 'pending'),
+  s('hockey', 'h2', 0, '18:00', 'Sweden: SHL', 'Frölunda', 'Linköping', 'Over 5.5', 1.8, 60, 'pending'),
+  s('handball', 'g1', 0, '18:30', 'Germany: Bundesliga', 'THW Kiel', 'Melsungen', '1', 1.3, 78, 'pending'),
+  s('handball', 'g2', 0, '20:00', 'France: Starligue', 'PSG Handball', 'Nantes', 'Over 58.5', 1.75, 62, 'pending'),
+  s('handball', 'g3', 1, '19:00', 'Denmark: Håndboldligaen', 'Aalborg', 'Skjern', '1', 1.4, 72, 'pending'),
+)

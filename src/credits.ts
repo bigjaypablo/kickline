@@ -1,0 +1,38 @@
+export const CREDITS: Record<string, { name: string; profile: string; page: string; source: string }> = {
+  "how-to-read-team-form": {
+    "name": "jarmoluk",
+    "profile": "https://pixabay.com/users/jarmoluk-143740/",
+    "page": "https://pixabay.com/photos/soccer-ball-stadium-field-488700/",
+    "source": "Pixabay"
+  },
+  "over-2-5-goals-when-it-works": {
+    "name": "planet_fox",
+    "profile": "https://pixabay.com/users/planet_fox-4691618/",
+    "page": "https://pixabay.com/photos/balls-footballs-training-8049598/",
+    "source": "Pixabay"
+  },
+  "bankroll-basics-for-tips": {
+    "name": "stevepb",
+    "profile": "https://pixabay.com/users/stevepb-282134/",
+    "page": "https://pixabay.com/photos/coins-calculator-budget-1015125/",
+    "source": "Pixabay"
+  },
+  "basketball-totals-explained": {
+    "name": "tortugamediaservices",
+    "profile": "https://pixabay.com/users/tortugamediaservices-5195555/",
+    "page": "https://pixabay.com/photos/basketball-sport-ball-game-2258650/",
+    "source": "Pixabay"
+  },
+  "hockey-moneyline-puck-line-totals": {
+    "name": "LuckyLife11",
+    "profile": "https://pixabay.com/users/luckylife11-5245360/",
+    "page": "https://pixabay.com/photos/hockey-slavia-skater-hockey-player-2744912/",
+    "source": "Pixabay"
+  },
+  "handball-goal-totals": {
+    "name": "Roses_Street",
+    "profile": "https://pixabay.com/users/roses_street-6652425/",
+    "page": "https://pixabay.com/photos/ball-handball-sports-sport-4855883/",
+    "source": "Pixabay"
+  }
+}

@@ -4,7 +4,7 @@ import { tipLabel } from '../lib/tip'
 import type { Prediction } from '../data'
 import Crest from './Crest'
 
-export default function BankerCard({ banker }: { banker: Prediction }) {
+export default function BankerCard({ banker, title = "Banker of the day" }: { banker: Prediction; title?: string }) {
   return (
     <motion.section
       key={banker.id}
@@ -17,7 +17,7 @@ export default function BankerCard({ banker }: { banker: Prediction }) {
         <div className="absolute inset-0 dots opacity-40 pointer-events-none" />
         <div className="absolute top-0 left-0 h-[3px] w-20 bg-volt" />
         <div className="relative p-5">
-          <div className="display text-center text-volt text-xl font-bold tracking-wide">Banker of the day</div>
+          <div className="display text-center text-volt text-xl font-bold tracking-wide">{title}</div>
           <div className="text-center text-[11px] text-mute mt-0.5">{banker.league} · {banker.time}</div>
 
           <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-center">

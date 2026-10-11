@@ -1,9 +1,18 @@
-import { MARKETS } from '../data'
+interface Market {
+  name: string
+  match: (tip: string) => boolean
+}
 
-export default function FilterChips({ active, onChange }: { active: number; onChange: (i: number) => void }) {
+interface Props {
+  markets: Market[]
+  active: number
+  onChange: (i: number) => void
+}
+
+export default function FilterChips({ markets, active, onChange }: Props) {
   return (
     <div className="flex border-b border-line mb-4 overflow-x-auto">
-      {MARKETS.map((m, i) => (
+      {markets.map((m, i) => (
         <button
           key={m.name}
           onClick={() => onChange(i)}

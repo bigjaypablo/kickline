@@ -1,21 +1,21 @@
 export type View = 'all' | 'soon' | 'epl'
 
-const TILES: { id: View; title: string }[] = [
-  { id: 'all', title: 'All tips' },
-  { id: 'soon', title: 'Kicking off in 3 hours' },
-  { id: 'epl', title: 'Premier League' },
-]
-
 interface Props {
   view: View
   counts: Record<View, number>
+  leagueTitle: string
   onChange: (v: View) => void
 }
 
-export default function QuickTiles({ view, counts, onChange }: Props) {
+export default function QuickTiles({ view, counts, leagueTitle, onChange }: Props) {
+  const tiles: { id: View; title: string }[] = [
+    { id: 'all', title: 'All tips' },
+    { id: 'soon', title: 'Starting in 3 hours' },
+    { id: 'epl', title: leagueTitle },
+  ]
   return (
     <div className="flex gap-2 overflow-x-auto mt-6">
-      {TILES.map((t) => (
+      {tiles.map((t) => (
         <button
           key={t.id}
           onClick={() => onChange(t.id)}

@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom'
+import { pathFor } from '../lib/paths'
 import type { ReactNode } from 'react'
 import Logo from './Logo'
 
 const COLS = [
-  { title: 'Predictions', links: ['Today', 'Tomorrow', 'Weekend', 'Banker tips', 'Results'] },
-  { title: 'Company', links: ['About us', 'Contact us', 'Advertise with us', 'Blog', 'Sitemap'] },
+  { title: 'Predictions', links: ['Free tips', 'Banker tips', 'Over 2.5 goals', 'BTTS', 'Basketball'] },
+  { title: 'Company', links: ['About us', 'Contact us', 'Advertise with us', 'Articles', 'Leagues'] },
   { title: 'Legal', links: ['Disclaimer', 'Privacy policy', 'Terms & conditions', 'Cookie policy', 'Responsible gambling'] },
 ]
 const HELP = [
@@ -59,7 +61,7 @@ export default function Footer() {
             <H>{c.title}</H>
             <ul className="space-y-2 text-sm text-mute">
               {c.links.map((l) => (
-                <li key={l}><a href="#" className="hover:text-volt transition-colors">{l}</a></li>
+                <li key={l}><Link to={pathFor(l)} className="hover:text-volt transition-colors">{l}</Link></li>
               ))}
             </ul>
           </div>

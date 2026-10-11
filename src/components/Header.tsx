@@ -1,15 +1,18 @@
+import { useEffect, useRef } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Logo from './Logo'
-import { useActive } from '../lib/useActive'
+import { isActive } from '../lib/paths'
 
 const NAV = [
-  { id: 'banker', label: 'Banker' },
-  { id: 'tips', label: 'Predictions' },
-  { id: 'results', label: 'Results' },
-  { id: 'stats', label: 'Stats' },
-  { id: 'articles', label: 'Blog' },
+  { to: '/botd', label: 'BOTD' },
+  { to: '/', label: 'Football' },
+  { to: '/basketball', label: 'Basketball' },
+  { to: '/hockey', label: 'Hockey' },
+  { to: '/handball', label: 'Handball' },
+  { to: '/articles', label: 'Articles' },
+  { to: '/leagues', label: 'Leagues' },
 ]
-const IDS = NAV.map((n) => n.id)
 
 interface Props {
   theme: 'dark' | 'light'
@@ -17,11 +20,18 @@ interface Props {
 }
 
 export default function Header({ theme, toggle }: Props) {
-  const active = useActive(IDS)
+  const { pathname } = useLocation()
+  const bar = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = bar.current?.querySelector<HTMLElement>('[data-active="true"]')
+    if (el && bar.current) bar.current.scrollTo({ left: el.offsetLeft - 16, behavior: 'smooth' })
+  }, [pathname])
+
   return (
     <header className="sticky top-0 z-20 bg-ink/95 backdrop-blur">
       <div className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14">
-        <Logo />
+        <Link to="/"><Logo /></Link>
         <div className="flex items-center gap-2">
           <button
             onClick={toggle}
@@ -45,21 +55,22 @@ export default function Header({ theme, toggle }: Props) {
               </motion.span>
             </AnimatePresence>
           </button>
-          <a href="#" className="bg-volt text-onvolt display font-bold tracking-wide text-sm px-4 h-9 grid place-items-center">
+          <a href="#" className="bg-volt text-onvolt display font-bold tracking-wide text-xs sm:text-sm px-3 sm:px-4 h-9 grid place-items-center">
             JOIN TELEGRAM
           </a>
         </div>
       </div>
 
-      <nav className="bg-panel border-y border-line">
-        <div className="mx-auto max-w-5xl flex overflow-x-auto">
+      <nav className="hidden sm:block bg-panel border-y border-line">
+        <div ref={bar} className="relative mx-auto max-w-5xl flex overflow-x-auto">
           {NAV.map((n) => {
-            const on = active === n.id
+            const on = isActive(pathname, n.to) || (n.to === '/' && pathname.startsWith('/football'))
             return (
-              <a
-                key={n.id}
-                href={`#${n.id}`}
-                className={`relative flex-1 sm:flex-none shrink-0 px-2 sm:px-6 h-11 grid place-items-center display text-[15px] sm:text-base font-bold tracking-wide transition-colors ${on ? 'text-onvolt' : 'text-bone hover:text-volt'}`}
+              <Link
+                key={n.to}
+                to={n.to}
+                data-active={on}
+                className={`relative shrink-0 px-5 sm:px-6 h-11 grid place-items-center display text-base font-bold tracking-wide transition-colors ${on ? 'text-onvolt' : 'text-bone hover:text-volt'}`}
               >
                 {on && (
                   <motion.span
@@ -69,7 +80,7 @@ export default function Header({ theme, toggle }: Props) {
                   />
                 )}
                 <span className="relative">{n.label}</span>
-              </a>
+              </Link>
             )
           })}
         </div>
