@@ -11,7 +11,7 @@ export default function BankerCard({ banker }: { banker: Prediction }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: EASE }}
-      className="mx-auto max-w-5xl px-4 mt-8"
+      id="banker" className="mx-auto max-w-5xl px-4 mt-8"
     >
       <div className="relative border border-line bg-panel overflow-hidden">
         <div className="absolute inset-0 dots opacity-40 pointer-events-none" />

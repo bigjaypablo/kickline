@@ -50,3 +50,8 @@ body {
   --onvolt: 6 18 10;
   color: rgb(236 238 232);
 }
+
+html { scroll-behavior: smooth; }
+[id] { scroll-margin-top: 6rem; }
+
+[id] { scroll-margin-top: 7.5rem; }

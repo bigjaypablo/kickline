@@ -1,9 +1,9 @@
-import BetButton from './BetButton'
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Prediction } from '../data'
 import { mockForm, mockReason, type Form } from '../extra'
 import { EASE, item } from '../lib/motion'
+import BetButton from './BetButton'
 
 function Badge({ r, time }: { r: Prediction['result']; time: string }) {
   if (r === 'won') return <span className="text-volt font-semibold">WON</span>
@@ -33,13 +33,20 @@ export default function PredictionRow({ r }: { r: Prediction }) {
   const [open, setOpen] = useState(false)
   const hf = useMemo(() => mockForm(r.id + 'h'), [r.id])
   const af = useMemo(() => mockForm(r.id + 'a'), [r.id])
+  const hot = r.result === 'pending' && r.prob >= 80
 
   return (
     <motion.div variants={item}>
-      <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center gap-3 px-3 py-3 text-left hover:bg-ink/60 transition-colors">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center gap-3 px-3 py-3 text-left hover:bg-ink/60 transition-colors"
+      >
         <div className="w-11 font-mono text-xs tabular-nums"><Badge r={r.result} time={r.time} /></div>
         <div className="flex-1 min-w-0 text-sm leading-snug">
-          <div className="truncate">{r.home}</div>
+          <div className="truncate">
+            {r.home}
+            {hot && <span className="ml-2 align-middle text-[9px] font-bold bg-red-500 text-white px-1 py-0.5">HOT</span>}
+          </div>
           <div className="truncate text-mute">{r.away}</div>
         </div>
         <div className="text-right">
@@ -53,6 +60,7 @@ export default function PredictionRow({ r }: { r: Prediction }) {
           <path d="M6 9l6 6 6-6" />
         </motion.svg>
       </button>
+
       <AnimatePresence initial={false}>
         {open && (
           <motion.div

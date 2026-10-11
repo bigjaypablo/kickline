@@ -49,3 +49,25 @@ const MOCK: Prediction[] = [
 export async function getPredictions(date: string): Promise<Prediction[]> {
   return MOCK.filter((x) => x.date === date)
 }
+
+export const MARKETS: { name: string; match: (tip: string) => boolean }[] = [
+  { name: 'All', match: () => true },
+  { name: '1X2', match: (t) => t === '1' || t === 'X' || t === '2' },
+  { name: 'O/U', match: (t) => t.startsWith('Over') || t.startsWith('Under') },
+  { name: 'DC', match: (t) => t === '1X' || t === 'X2' || t === '12' },
+  { name: 'BTTS', match: (t) => t === 'BTTS' },
+]
+
+MOCK.push(
+  p('12', -2, '14:00', 'England: Premier League', 'Newcastle', 'Everton', '1', 1.4, 71, 'won'),
+  p('13', -2, '16:30', 'Germany: Bundesliga', 'Dortmund', 'Mainz', 'Over 1.5', 1.2, 84, 'won'),
+  p('14', -2, '19:00', 'Spain: La Liga', 'Valencia', 'Osasuna', 'X2', 1.55, 66, 'lost'),
+  p('15', -3, '15:00', 'Italy: Serie A', 'Napoli', 'Genoa', '1', 1.3, 77, 'won'),
+  p('16', -3, '17:30', 'France: Ligue 1', 'Lille', 'Brest', 'Under 3.5', 1.25, 80, 'won'),
+)
+
+export async function getRecent(days = 5): Promise<Prediction[]> {
+  return MOCK.filter((x) => x.date < day(0) && x.date >= day(-days) && x.result !== 'pending').sort((a, b) =>
+    a.date < b.date ? 1 : -1
+  )
+}

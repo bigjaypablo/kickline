@@ -1,15 +1,15 @@
-import { FILTERS } from '../data'
+import { MARKETS } from '../data'
 
 export default function FilterChips({ active, onChange }: { active: number; onChange: (i: number) => void }) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-3">
-      {FILTERS.map((f, i) => (
+    <div className="flex border-b border-line mb-4 overflow-x-auto">
+      {MARKETS.map((m, i) => (
         <button
-          key={f.name}
+          key={m.name}
           onClick={() => onChange(i)}
-          className={`shrink-0 text-sm px-3 py-1 border transition-colors ${i === active ? 'bg-volt text-onvolt border-volt font-medium' : 'border-line text-mute'}`}
+          className={`shrink-0 px-4 py-2 text-sm -mb-px border-b-2 transition-colors ${i === active ? 'border-volt text-volt font-semibold' : 'border-transparent text-mute hover:text-bone'}`}
         >
-          {f.name}
+          {m.name}
         </button>
       ))}
     </div>

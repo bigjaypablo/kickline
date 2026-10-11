@@ -1,7 +1,15 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Logo from './Logo'
+import { useActive } from '../lib/useActive'
 
-const NAV = ['Predictions', 'Banker', 'Results', 'Blog']
+const NAV = [
+  { id: 'banker', label: 'Banker' },
+  { id: 'tips', label: 'Predictions' },
+  { id: 'results', label: 'Results' },
+  { id: 'stats', label: 'Stats' },
+  { id: 'articles', label: 'Blog' },
+]
+const IDS = NAV.map((n) => n.id)
 
 interface Props {
   theme: 'dark' | 'light'
@@ -9,8 +17,9 @@ interface Props {
 }
 
 export default function Header({ theme, toggle }: Props) {
+  const active = useActive(IDS)
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-ink/90 backdrop-blur">
+    <header className="sticky top-0 z-20 bg-ink/95 backdrop-blur">
       <div className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14">
         <Logo />
         <div className="flex items-center gap-2">
@@ -41,10 +50,29 @@ export default function Header({ theme, toggle }: Props) {
           </a>
         </div>
       </div>
-      <nav className="mx-auto max-w-5xl flex gap-6 overflow-x-auto px-4 pb-2 text-sm text-mute">
-        {NAV.map((n) => (
-          <a key={n} href="#" className="shrink-0 hover:text-volt transition-colors">{n}</a>
-        ))}
+
+      <nav className="bg-panel border-y border-line">
+        <div className="mx-auto max-w-5xl flex overflow-x-auto">
+          {NAV.map((n) => {
+            const on = active === n.id
+            return (
+              <a
+                key={n.id}
+                href={`#${n.id}`}
+                className={`relative flex-1 sm:flex-none shrink-0 px-2 sm:px-6 h-11 grid place-items-center display text-[15px] sm:text-base font-bold tracking-wide transition-colors ${on ? 'text-onvolt' : 'text-bone hover:text-volt'}`}
+              >
+                {on && (
+                  <motion.span
+                    layoutId="navpill"
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0 bg-volt"
+                  />
+                )}
+                <span className="relative">{n.label}</span>
+              </a>
+            )
+          })}
+        </div>
       </nav>
     </header>
   )

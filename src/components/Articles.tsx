@@ -8,7 +8,7 @@ const ARTICLES = [
 
 export default function Articles() {
   return (
-    <section className="mx-auto max-w-5xl px-4 mt-10">
+    <section id="articles" className="mx-auto max-w-5xl px-4 mt-10">
       <SectionTitle>Latest articles</SectionTitle>
       <div className="grid md:grid-cols-3 gap-3">
         {ARTICLES.map((a) => (

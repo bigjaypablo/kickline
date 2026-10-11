@@ -6,7 +6,7 @@ export default function StickyBar() {
   const b = getBanner('sticky')
   if (!b || !open) return null
   return (
-    <div className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-ink border-t border-line py-1">
+    <div className="sm:hidden fixed bottom-14 inset-x-0 z-30 bg-ink border-t border-line py-1">
       <div className="relative mx-auto max-w-[320px] aspect-[32/5]">
         <a
           href={b.href}
